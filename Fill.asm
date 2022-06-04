@@ -11,7 +11,7 @@
 // "white" in every pixel;
 // the screen should remain fully clear as long as no key is pressed.
 
-// Mangesh Bhattacharya | 039-251-145
+// Mangesh Bhattacharya
 
 @beginning
         M=-1        
