@@ -12,7 +12,7 @@
 // Put your code here.
 //RAM[2] = RAM[0]+RAM[1]
 
-// Mangesh Bhattacharya | 039-251-145
+// Mangesh Bhattacharya
 // Pseudo Code
 // y=R1
 // x=R0
