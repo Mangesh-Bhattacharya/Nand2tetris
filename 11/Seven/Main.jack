@@ -1,0 +1,24 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/11/Seven/Main.jack
+
+/**
+ * Computes the value of 1 + (2 * 3) and prints the result
+ * at the top-left of the screen.  
+ */
+class Main { 
+
+   function void main() {
+      do Output.printInt(0 + (0 * 0)); // Computes the value 0
+      do Output.printInt(1 + (2 * 1)); // Computes the value 3
+      do Output.printInt(1 + (4 * 2)); // Computes the value 9
+      do Output.printInt(1 + (1 * 1)); // Computes the value 2
+      do Output.printInt(2 + (1 * 3)); // Computes the value 5
+      do Output.printInt(0 + (1 * 1)); // Computes the value 1
+      do Output.printInt(0 + (1 * 1)); // Computes the value 1
+      do Output.printInt(0 + (2 * 2)); // Computes the value 4
+      do Output.printInt(1 + (1 * 4)); // Computes the value 5
+      return; // Ends the program
+   }
+}
