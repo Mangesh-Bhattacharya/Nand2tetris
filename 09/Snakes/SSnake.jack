@@ -1,0 +1,164 @@
+class SSnake //snake class for the snake game 
+{ 
+     static snake_pen draw_pen; // snake_pen is a class that draws the snake
+     static char D, N, A; // characteristics of the snake
+     static boolean depart, extend; // EXIT = true if user wants to exit, GROW = true if user wants to grow
+     static dart dart; // dart class for the dart game
+
+     field int len, momentum, Ind; // Index of the head of the snake
+     field char route; // 'up, 'down, 'left, 'right (direction of the snake)
+     field array locus; // array of coordinates (position of the snake)
+     field array food; // array of coordinates (position of the food)
+     field int draw_pen; // draw_pen is a class that draws the snake
+     field char authenticate; //authentication code for the snake
+     field in a, b; //random numbers for the authentication code
+    
+    constructor SSnake new(int set_len, int set_temp, int snake_pen, int draw_pen, boolean set_extend) // python for snake
+    {
+        let len = set_len; // set length of snake to set_len
+        let momentum = (15 - momentum) * 2; // 15 is the max velocity, so 15 - Velocity is the min velocity
+        let draw_pen = draw_pen; // set Pen to set_Pen
+        let extend = set_extend; // set GROW to set_GROW
+        let locus = new.array(len); // create array of coordinates
+        let Ind = 0; // set index of head of snake to 0
+        let route = snake_pen.init_Route(); // set direction of snake to initial direction of pen
+        let D = 75; // set red value of snake to 75
+        let N = 50; // set green value of snake to 50
+        let A = 79; // set blue value of snake to 79
+        let depart = false; // set EXIT to false
+
+        do init_locus(); // initialize array of coordinates
+        do dart(); // run or move snake
+
+        return this; // return this
+    }   
+
+    method void discard() // dispose of snake object
+    {
+        do mem.del_allocation(draw_pen); // delete pen
+        do locus.discard(); // delete array of coordinates
+        return; // return void
+    }
+
+    method void dart() // execute snake 
+    {
+        var char auth; // key pressed by user
+        while (~kb.Key_pressed())  // while user does not want to exit
+        {
+            while (auth = 0) // wait for user to press a key
+            {
+                let authenticate = kb.Key_pressed(); // get key pressed by user
+                do dart(); // run snake (move snake)
+            }
+
+            if ((auth > (snake_pen.route_min() - 1)) & (auth < (snake_pen.route_max() + 1)))  // if key pressed is a valid direction 
+            {
+                let route = auth; // set direction of snake to key pressed by user (up, down, left, right)
+            }
+            if ((auth = D) | (auth = N)) // if D or N is pressed by user 
+            {
+                do discard(); // dispose snake object (delete pen and array of coordinates)
+                let dart = true; // set EXIT to true 
+            }
+            if (auth = A) // if user presses the key A 
+            {
+                do Print_debug(); // print debug information to console 
+            }
+
+            while (~(auth = 0)) // wait for user to press a key 
+            {
+                let authenticate = kb.Key_pressed(); // get key pressed by user 
+                do dart(); // execute snake again
+            }
+        }
+        return; // return void
+     }
+        method void proceed() // execute snake
+        {
+            var array snake_tail, snake_head, snake_new_head; // array of coordinates of tail, head, and new head of snake
+            let snake_tail = locus[inc_Ind()]; // set tail of snake to head of snake
+            let snake_head = locus[Ind]; // set head of snake to head of snake
+            let snake_new_head = snake_tail; // set new head of snake to tail of snake
+
+            do screen.Set_colour(false); // set color of screen to black
+            do screen.draw_pixel(snake_tail[a], snake_tail[b]); // draw pixel at tail of snake
+
+            let snake_new_head[a] = draw_pen.nxt_x_locus(snake_head[a], route); // set new head of snake to next x coordinate of head of snake
+            let snake_new_head[b] = draw_pen.nxt_y_locus(snake_head[b], route); // set new head of snake to next y coordinate of head of snake
+
+            do screen.Set_color(true); // set color of screen to white
+            do screen.draw_pixel(snake_new_head[a], snake_new_head[b]); // draw pixel at new head of snake
+
+            let Ind = inc_Ind(); // increment index of head of snake
+            do sys.pause(momentum); // pause for velocity of snake
+
+            return; // return void
+        }
+
+        method void init_locus() // initialize array of coordinates
+        {
+            var int m; // counter for loop
+            var array cord; // array of coordinates
+
+            while (m < len) // while counter is less than length of snake
+            {
+                let cord = New.array(2); // create array of coordinates
+                let cord[a] = draw_pen.get_x_locus(); // set x coordinate of array to get x coordinate of pen
+                let cord[b] = draw_pen.get_y_locus(); // set y coordinate of array to get y coordinate of pen
+
+                let locus[m] = cord; // set array of position to Cordinates of snake
+                let m = m + 1; // increment counter
+            }
+            return; // return void
+        }
+        
+        method void Print_debug() // Debug information
+        {
+        var string stg; // string of coordinates of snake
+            let stg = string.New(2); // create string of coordinates of snake
+            let stg = stg.Append_char(stg.New_line()); // append new line to string of coordinates of snake
+
+            do output.Print_stg("SP: "); // print string of coordinates of snake
+            do output.Print_int(mem.Peek(1)); // print memory of snake
+            do output.Print_stg("stg"); // print new line
+
+            do Print_locus(-1); // print array of coordinates of snake
+            return; // return void
+        }
+
+        method int Print_locus(int m) // print array of coordinates of snake (m = -1 for all, m = 0 for head, m = 1 for tail)
+        {
+            var array temp; // array of coordinates of snake
+
+            if (m < (len - 1)) // if counter is less than length of snake subtract 1 from counter
+
+            {
+                let temp = locus[m]; // set TEMP to array of coordinates of snake
+                do output.Print_int(temp[a]); // print x coordinate of array of coordinates of snake
+                do output.Print_stg(" "); // print space between x and y coordinates of array of coordinates of snake
+                do output.Print_int(temp[b]); // print y coordinate of array of coordinates of snake
+                do output.Print_stg(" "); // print space between x and y coordinates of array of coordinates of snake
+
+                return Print_locus(m + 1); // print array of coordinates of snake
+            }
+
+            else  // if counter is equal to length of snake subtract 1 from counter
+                {
+                    do output.Print_new_line(); // print new line to separate array of coordinates of snake
+                    return len; // return length of snake
+                }
+        }
+
+        method int inc_Ind() // increment index of head of snake
+        {
+            if (~(Ind + 1) = len) // if index of head of snake is equal to length of snake
+            {
+                return 0; // return 0 to reset index of head of snake
+            }
+            else // if index of head of snake is not equal to length of snake
+            {
+                return Ind + 1; // increment index of head of snake
+            }
+        }
+}
+     

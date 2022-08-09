@@ -1,0 +1,17 @@
+class Main {
+  function void main() {
+    var Snake snake;
+    var SnakePen pen;
+    var int length;
+
+    let pen = SnakePen.setSize(0, 0, 511, 255);
+
+    let length = Keyboard.readInt("How long?");
+    do Screen.clearScreen();
+
+    let snake = Snake.new(length, 10, pen, null);
+    do snake.run();
+
+    return;
+  }
+}

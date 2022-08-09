@@ -1,0 +1,102 @@
+class snake_drawpen // drawpen class for snake game
+{ 
+        static char clockwise,top,bottom,counter_clockwise; //direction of snake head movement  
+        field int y_min, y_max, x_min, x_max; //field boundaries
+        field int Y_locus, X_locus; //snake head coordinates
+        field int y_midpoint, x_midpoint; //midpoint of field
+
+    constructor snake_drawpen fitSize(int fitY_min, int fitY_max, int fitX_min, int fitX_max); //set field boundaries
+    {
+        { 
+            let bottom = 129; //bottom of field - down arrow key
+            let top = 130; //top of field - up arrow key
+            let clockwise = 132; //direction of snake head movement - right arrow key 
+            let counter_clockwise = 130; //direction of snake head movement - left arrow key
+            let y_min = fitY_min; //set field boundaries
+            let y_max = fitY_max; //set field boundaries
+            let x_min = fitX_min; //set field boundaries
+            let x_max = fitX_max; //set field boundaries
+            
+            do snake_drawpen(); //initialize drawpen
+        }
+        return snake_drawpen; //return snake_drawpen class
+    }
+    method int Y_locus(int locus, char route) //following Y locus
+    {
+        let locus = locus; //Position of snake head movement 
+        let route = route; //Direction of snake head movement 
+        let Y_locus = 0; //following Y locus 
+        
+        if (route = clockwise) // if route is clockwise
+        {
+          let Y_locus = locus + 1; //following Y locus 
+        }
+        else  
+        {
+           let route = counter_clockwise; // if route is counter_clockwise
+        }
+        if (route = counter_clockwise) // if route is counter_clockwise
+        {
+          let Y_locus = locus - 1; //following Y locus 
+        }
+        else // if route is undefined 
+        {
+          let Y_locus = locus; //following Y locus 
+        }
+        
+        return Y_locus; //return following Y locus 
+    }
+
+    method int X_locus(int locus, char route) //following X locus
+    {
+        let locus = locus; //locus of snake head movement
+        let route = route; //direction of snake head movement
+        let X_locus = 0; //following X locus
+        
+        if (route = clockwise) // if direction of snake head movement is clockwise
+        {
+            let X_locus = locus + 1; //following X locus is locus + 1
+        }
+        if (route = counter_clockwise) // if direction of snake head movement is counter-clockwise
+        {
+            let X_locus = locus - 1; //following X locus is locus - 1
+        }
+        else // if direction of snake head movement is not clockwise or counter-clockwise (i.e. snake head is not moving)
+        {
+            let X_locus = locus; //following X locus is locus
+        }
+        
+        return X_locus; //return following X locus (i.e. snake head is moving in this direction)
+    }
+
+    method int y_midpoint() //get y midpoint
+    {
+        let y_midpoint = (y_min + y_max) / 2; //y midpoint is the average of y_min and y_max divided by 2
+        return y_midpoint; //return y midpoint (i.e. the y coordinate of the center of the field)
+    }
+
+    method int x_midpoint() //get x midpoint
+    {
+        let x_midpoint = (x_min + x_max) / 2; //x midpoint is the average of x_min and x_max divided by 2 (i.e. the x coordinate of the center of the field)
+        return x_midpoint; //return x midpoint (i.e. the x coordinate of the center of the field)
+    }
+
+    function char route_min() // get direction of snake head movement
+    {
+        var char tb, ccc; //direction of snake head movement
+        let ccc = math.Min(clockwise, counter_clockwise); //direction of snake head movement
+        let tb = math.Max(top, bottom); //direction of snake head movement
+
+        return math.Min(ccc, tb); //return direction of snake head movement
+    }
+
+    function char route_max() // get direction of snake head movement
+    {
+        return bottom; //return direction of snake head movement
+    }
+
+    function char init_Route() 
+    {
+        return clockwise; //return direction of snake head movement 
+    }
+}

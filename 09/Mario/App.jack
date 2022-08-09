@@ -1,0 +1,14 @@
+"""
+Mangesh Bhattacharya | 039-251-145
+"""
+class app
+{
+method void run (character input) {
+     var crouch Cr;
+     var jump J;
+        var walk W;
+        var left L;
+        var right R;
+    
+    if ( 
+}

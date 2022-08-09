@@ -1,0 +1,21 @@
+class Main // Extends the Application class
+{
+    function void main() // entry point of the program 
+    {
+         var snake Snake; // create an instance of the Snake class
+         var snake_pen Pen; // create an instance of the Pen class
+         var int len; // length of the snake
+
+         let Pen = snake_drawpen.set_size(0); // set the size of the pen to 0
+         let Pen = snake_drawpen.set_size(516); // set the size of the pen to 516
+         let Pen = snake_drawpen.set_size(0); // set the size of the pen to 0
+         let Pen = snake_drawpen.set_size(256); // set the size of the pen to 256
+
+         let Snake = snake.set_length("Suggest length of the Snake: "); // set the length of the snake
+            do screen.clearscreen(); // clear screen before drawing the snake
+            let Snake = snake.New(len, 15, Pen); // create a new snake with the given length
+            do snake.move(); // move the snake to the right until it hits the right side of the screen
+
+            return; // end of the program
+    }
+}

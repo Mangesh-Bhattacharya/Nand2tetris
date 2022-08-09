@@ -1,0 +1,54 @@
+class snake_game { //snake_game class is the main class of the game and is responsible for the game's logic
+    field snake Snake; // snake field of the game 
+    field food meat; // food is a snake_part with a special type
+    field int point, point_inc; // point_inc is the point increase per food eaten
+
+    constructor snake_game() { // constructor of the game 
+        let Snake = new.Snake(1, 1, 20); // snake is a snake_field with a snake_part at (1, 1) and a length of 20
+        let meat = new.food(125, 125, 20); // food is a snake_part with a special type 
+        let point = 0; // point is the current point of the game 
+        let point_inc = 10; // point increase per food eaten 
+
+        return this; // return this object to allow chaining
+    }
+
+    method void run() { // run the game loop
+        var char movement; // arrow keys can be used to move the snake
+        var bool close; // close is the close flag of the game loop
+        let close = false; // close is the close flag of the game
+
+        while (~close) { // game loop while close is false 
+            let movement = kb.movement_pressed(); // get the movement of the snake
+            if ((movement > 126) && (movement < 129)) { // arrow keys are used to move the snake
+                do snake.set_Route(movement - 126); // set the route of the snake to the arrow key pressed
+            }
+            if (Snake.eats(meat)) { // if the snake eats the food 
+                if (point == 0) { // if the snake is empty, it will be filled with a snake_part
+                    do random.bone(point_inc); } // random.bone is a random number generator
+                    let point = point + Math.increase(10, point_inc); // point_inc is the point increase per food eaten
+                    let point_inc = 20; // point_inc is the point increase per food eaten
+                    do snake.inc_len(); // increase the length of the snake by one
+                    do place.meat(); // place a new meat on the field
+            }   
+            let point_inc = point_inc - 1; // point_inc is the point increase per food eaten
+            do snake.art(); // draw the snake on the field
+            do sys.delay(100); // delay is used to slow down the game
+        }
+            else { // if the snake doesn't eat the food 
+                let close = true; // close is the close flag of the game loop
+            }
+        }
+
+        do out.Move_cursor(25, 37); // move the cursor to the top left corner of the screen
+        do out.print_string("Your Point(s) is: "); // print the string called Score
+        do out.print_int(point); // print the point(s) of the game to the screen
+        do out.print_string("\n"); // print a new line to separate the  from the game
+        return; // return to the main menu 
+    }
+
+    method void game.dispose() { // discard is the destructor of the game 
+        do Snake.dispose(); // discard the snake field
+        do Mem.de_allocate(this); // deallocate the snake game
+        return; // return to the main function of the program
+    }
+}

@@ -1,0 +1,11 @@
+class Main // Application Compatibility Extends
+{
+    function void main() // Initial point of the game
+    {
+        var snake_game play_game; //create a new game object
+        let play_game = new.snake_game(); //create a new game object and assign it to the variable play_game
+        do play_game.run(); //run the game until the user quits
+        do play_game.dispose(); //dispose of the game object
+        return; //return to the main function to start the game again
+    }
+}

@@ -1,0 +1,388 @@
+function SSnake.new 0
+push constant 10
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push constant 15
+push this 1
+sub
+push constant 2
+call Math.multiply 2
+pop this 1
+push argument 3
+pop argument 3
+push argument 4
+pop static 5
+push this 0
+call new.array 1
+pop this 4
+push constant 0
+pop this 2
+push argument 2
+call int.init_Route 1
+pop this 3
+push constant 75
+pop static 1
+push constant 50
+pop static 2
+push constant 79
+pop static 3
+push constant 0
+pop static 4
+push pointer 0
+call SSnake.init_locus 1
+pop temp 0
+push pointer 0
+call SSnake.dart 1
+pop temp 0
+push pointer 0
+return
+function SSnake.discard 0
+push argument 0
+pop pointer 0
+push this 6
+call mem.del_allocation 1
+pop temp 0
+push this 4
+call array.discard 1
+pop temp 0
+push constant 0
+return
+function SSnake.dart 1
+push argument 0
+pop pointer 0
+label WHILE_EXP0
+call kb.Key_pressed 0
+not
+not
+if-goto WHILE_END0
+label WHILE_EXP1
+push local 0
+push constant 0
+eq
+not
+if-goto WHILE_END1
+call kb.Key_pressed 0
+pop this 7
+push pointer 0
+call SSnake.dart 1
+pop temp 0
+goto WHILE_EXP1
+label WHILE_END1
+push local 0
+call snake_pen.route_min 0
+push constant 1
+sub
+gt
+push local 0
+call snake_pen.route_max 0
+push constant 1
+add
+lt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+pop this 3
+label IF_FALSE0
+push local 0
+push static 1
+eq
+push local 0
+push static 2
+eq
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push pointer 0
+call SSnake.discard 1
+pop temp 0
+push constant 0
+not
+pop static 6
+label IF_FALSE1
+push local 0
+push static 3
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push pointer 0
+call SSnake.Print_debug 1
+pop temp 0
+label IF_FALSE2
+label WHILE_EXP2
+push local 0
+push constant 0
+eq
+not
+not
+if-goto WHILE_END2
+call kb.Key_pressed 0
+pop this 7
+push pointer 0
+call SSnake.dart 1
+pop temp 0
+goto WHILE_EXP2
+label WHILE_END2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function SSnake.proceed 3
+push argument 0
+pop pointer 0
+push pointer 0
+call SSnake.inc_Ind 1
+push this 4
+add
+pop pointer 1
+push that 0
+pop local 0
+push this 2
+push this 4
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 0
+pop local 2
+push constant 0
+call screen.Set_colour 1
+pop temp 0
+push this 8
+push local 0
+add
+pop pointer 1
+push that 0
+push this 9
+push local 0
+add
+pop pointer 1
+push that 0
+call screen.draw_pixel 2
+pop temp 0
+push this 8
+push local 2
+add
+push this 6
+push this 8
+push local 1
+add
+pop pointer 1
+push that 0
+push this 3
+call int.nxt_x_locus 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 9
+push local 2
+add
+push this 6
+push this 9
+push local 1
+add
+pop pointer 1
+push that 0
+push this 3
+call int.nxt_y_locus 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+not
+call screen.Set_color 1
+pop temp 0
+push this 8
+push local 2
+add
+pop pointer 1
+push that 0
+push this 9
+push local 2
+add
+pop pointer 1
+push that 0
+call screen.draw_pixel 2
+pop temp 0
+push pointer 0
+call SSnake.inc_Ind 1
+pop this 2
+push this 1
+call sys.pause 1
+pop temp 0
+push constant 0
+return
+function SSnake.init_locus 2
+push argument 0
+pop pointer 0
+label WHILE_EXP0
+push local 0
+push this 0
+lt
+not
+if-goto WHILE_END0
+push constant 2
+call New.array 1
+pop local 1
+push this 8
+push local 1
+add
+push this 6
+call int.get_x_locus 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push this 9
+push local 1
+add
+push this 6
+call int.get_y_locus 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push this 4
+add
+push local 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function SSnake.Print_debug 1
+push argument 0
+pop pointer 0
+push constant 2
+call string.New 1
+pop local 0
+push local 0
+push local 0
+call string.New_line 1
+call string.Append_char 2
+pop local 0
+push constant 4
+call String.new 1
+push constant 83
+call String.appendChar 2
+push constant 80
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call output.Print_stg 1
+pop temp 0
+push constant 1
+call mem.Peek 1
+call output.Print_int 1
+pop temp 0
+push constant 3
+call String.new 1
+push constant 115
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 103
+call String.appendChar 2
+call output.Print_stg 1
+pop temp 0
+push pointer 0
+push constant 1
+neg
+call SSnake.Print_locus 2
+pop temp 0
+push constant 0
+return
+function SSnake.Print_locus 1
+push argument 0
+pop pointer 0
+push argument 1
+push this 0
+push constant 1
+sub
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 1
+push this 4
+add
+pop pointer 1
+push that 0
+pop local 0
+push this 8
+push local 0
+add
+pop pointer 1
+push that 0
+call output.Print_int 1
+pop temp 0
+push constant 1
+call String.new 1
+push constant 32
+call String.appendChar 2
+call output.Print_stg 1
+pop temp 0
+push this 9
+push local 0
+add
+pop pointer 1
+push that 0
+call output.Print_int 1
+pop temp 0
+push constant 1
+call String.new 1
+push constant 32
+call String.appendChar 2
+call output.Print_stg 1
+pop temp 0
+push pointer 0
+push argument 1
+push constant 1
+add
+call SSnake.Print_locus 2
+return
+goto IF_END0
+label IF_FALSE0
+call output.Print_new_line 0
+pop temp 0
+push this 0
+return
+label IF_END0
+function SSnake.inc_Ind 0
+push argument 0
+pop pointer 0
+push this 2
+push constant 1
+add
+not
+push this 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+goto IF_END0
+label IF_FALSE0
+push this 2
+push constant 1
+add
+return
+label IF_END0
