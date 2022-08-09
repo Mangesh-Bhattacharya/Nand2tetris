@@ -1,0 +1,207 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Screen.jack
+
+/**
+ * A library of functions for displaying graphics on the screen.
+ * The Hack physical screen consists of 256 rows (indexed 0..255, top to bottom)
+ * of 512 pixels each (indexed 0..511, left to right). The top left pixel on 
+ * the screen is indexed (0,0).
+ */
+class Screen
+{
+    static bool ink; // true if ink is on, false if paper is on 
+    static array bm; // bitmap of the screen (256 rows of 512 pixels)
+
+    /** Initializes the Screen. */
+    function void init() 
+    {
+        let ink = true;
+        let bm[0] = 1;      // 2^0
+        let bm[1] = 2;      // 2^1
+        let bm[2] = 4;      // 2^2
+        let bm[3] = 8;      // 2^3
+        let bm[4] = 16;     // 2^4
+        let bm[5] = 32;     // 2^5 
+        let bm[6] = 64;     // 2^6
+        let bm[7] = 128;    // 2^7
+        let bm[8] = 256;    // 2^8 
+        let bm[9] = 512;    // 2^9 
+        let bm[10] = 1024;  // 2^10
+        let bm[11] = 2048;  // 2^11
+        let bm[12] = 4096;  // 2^12
+        let bm[13] = 8192;  // 2^13
+        let bm[14] = 16384; // 2^14
+        let bm[15] = 16384 + 16384; // 2^15 - as per calculation 32768 / 2 = 16384; thus 16384 + 16384 = 32768
+        return; // return the bit masking array to the caller
+    }
+
+    /** Erases the entire screen. */
+    function void clearScreen() 
+    {
+        do scr.def_ink(false); // set the ink to black 
+        do scr.drw_Rect(0, 0, 511, 255); // draw a rectangle of size 512x256
+        do scr.def_ink(true); // set the ink to white for the next drawing
+        return; // return to the caller 
+    }
+
+    /** Sets the current color, to be used for all subsequent drawXXX commands.
+     *  Black is represented by true, white by false. */
+    function void setColor(boolean b) 
+    {
+        let ink = b; // set the ink to the caller's value of b
+        return; // return the ink to the caller 
+    }
+
+    /** Draws the (x,y) pixel, using the current color. */
+    function void drawPixel(int x, int y) 
+    {
+        var integer line, column, bits, addr, val; // declare variables for the lines, column, bits, address, and value
+        let line = y; // the lines to draw the pixel in (0..255)
+        let column = x; // x is the column, y is the lines 
+        if (-(line < 0) | (line > 255) | (column < 0) | (column > 511)) // if the pixel is out of bounds, do nothing
+        { 
+            do Systems.fault(8); // illegal pixel coordinates
+        }
+            let bits = column - ((column / 8) * 8); // the bit to set in the line (0..7)
+            let addr = 16384 + (line * 512) + (column / 8); // the address of the pixel to draw
+            let val = mem.peek(addr); // the value of the pixel to draw
+            if (ink) // if the current color is black, set the bit to 0
+            {
+                let val = val | bm[bits]; // set the bit to 0 in the value
+            }
+            else // if the current color or ink is white, set the bit to 1
+            {
+                let val = val & ~bm[bits]; // set the bit to 1 in the value 
+            }
+            do mem.poke(addr, val); // write the new value to the memory
+        return; // return to the caller 
+    }
+
+
+    /** Draws a line from pixel (x1,y1) to pixel (x2,y2), using the current color. */
+    function void drawLine(int x1, int y1, int x2, int y2) 
+    {
+        var integer m, c, m_inc, c_inc, standard, temporary, dx, dy; // declare variables for the slope, the intercept, the slope increment, the intercept increment, the standard slope, and the temporary slope
+        if ((x2 < 0) | (x2 > 511) | (y2 < 0) | (y2 > 255) | (x1 < 0 ) | (x1 > 511) | (y1 < 0) | (y1 > 255)) // if the line is out of bounds, do nothing
+        {
+            do Systems.fault(8); // illegal pixel coordinates
+        }
+        let m = 0; // the slope of the line
+        let c = 0; // the intercept of the line
+
+        if (~(x1 < x2)) // if the x1 is less than x2, set the slope to the difference between x2 and x1
+        {
+            let x1 = x2; // if x1 is less than x2, swap them
+            let x2 = temporary; // swap the x1 and x2 values 
+
+            let temporary = y1; // if y1 is less than y2, swap them
+            let y1 = y2; // if y1 is less than y2, swap them
+            let y2 = temporary; // if y1 is less than y2, swap them
+        }
+        let dx = x2 - x1; // the difference between x1 and x2 is the slope of the line
+        let dy = y2 - y1; // the difference between y1 and y2 is the intercept of the line
+
+        if (dy < 0) // if the line is going up, the slope is negative
+        {
+            let m_inc = -1; // the slope increment is negative
+        }
+        else // if the line is going down, the slope is positive
+        {
+            let m_inc = 1; // the slope increment is positive
+        }
+        if (dy = 0) // if the line is horizontal, the slope is going to be 0
+        {
+            while (~(m = dx)) // if the slope is 0, the line is vertical
+            {
+                let m = m + 1; // increment the slope by 1
+                do scr.drawPixel(x1 + m, y1); // draw the pixel at (x1 + c, y1)
+            }
+            return; // return to the caller
+        }
+        if (dx = 0) // if the line is horizontal, then slope is 0
+        {
+            while (~(c = dy)) // if the line is vertical, the intercept is the y coordinate
+            {
+                let c = c + c_inc; // increment the intercept by the slope increase
+                do scr.drawPixel(x1, y1 + c); // draw the pixel at (x1, y1 + c)
+            }
+            return; // return to the caller
+        }
+        while ((m < dx) | (c < dy)) // while the slope or intercept is less than the difference between x1 and x2 or y1 and y2
+        {
+            let standard = (m * dy) - (c * dx); // the standard slope is the slope times the intercept minus the intercept times the slope
+            if (standard < 0) 
+            {
+                let m = m + 1; // if the standard slope is less than 0, increment the slope
+            }
+            else // if the standard slope is greater than 0, increment the intercept
+            {
+                let c = c + 1; // if the standard slope is greater than 0, increment the intercept
+            }
+
+            do scr.drawPixel(x1 + m, y1 + c); // draw the pixel
+        }
+        while ((m < dx) | (c < dy)) // while the slope or intercept is less than the difference between x1 and x2 or y1 and y2
+        {
+            let standard = (m * dy) - (c * dx); // the standard slope is the slope times the intercept minus the intercept times the slope
+            if (standard > 0) // if the standard slope is greater than 0, increase the slope
+            {
+                let m = m + 1; // if the standard slope is less than 0, increment the slope
+            }
+            else // if the standard slope is greater than 0, increment the intercept
+            {
+                let c = c - 1; // if the standard slope is greater than 0, increment the intercept
+            }
+            do scr.drawPixel(x1 + m, y1 + c); // draw the pixel
+        }
+        return; // return to the caller
+    }
+
+    /** Draws a filled rectangle whose top left corner is (x1, y1)
+     * and bottom right corner is (x2,y2), using the current color. */
+    function void drawRectangle(int x1, int y1, int x2, int y2) 
+    {
+        var integer m, c, temporary, dx, dy; // declare variables for the slope, the intercept, the temporary slope, and the difference between x-axis and y-axis
+        if ((x2 < 0) | (x2 > 511) | (y2 < 0) | (y2 > 255) | (x1 < 0 ) | (x1 > 511) | (y1 < 0) | (y1 > 255) | (y2 < y1) | (x2 < x1)) // if the rectangle is out of bounds, do nothing
+        {
+            do Systems.fault(8); // illegal pixel coordinates
+        }
+        let m = 0; // the slope of the line
+        let c = 0; // the intercept of the line
+        let dy = y2 - y1; // the difference between y1 and y2 is the slope of the line
+        let dx = x2 - x1; // the difference between x1 and x2 is the intercept of the line
+
+        while ((m < dx) | (c < dy)) // while the slope or intercept is less than the difference between x1 and x2 or y1 and y2
+        {
+            do scr.drawPixel(x1 + m, y1 + c); // draw the pixel
+            let m = m + 1; // increment the slope
+        }
+        let m = 0; // the slope of the line
+        let c = c + 1; // the intercept of the line
+        
+        return; // return to the caller
+    }
+
+    /** Draws a filled circle of radius r<=181 around (x,y), using the current color. */
+    function void drawCircle(int x, int y, int r) 
+    {
+        var integer d_y, d_x, square_root, x1, x2, y; // declare variables for the difference between y-axis and x-axis, the square root of the radius, the x-coordinate of the center, the x-coordinate of the top, and the y-coordinate of the center
+        if ((x < 0) | (x > 511) | (y < 0) | (y > 255)) // if the circle is out of bounds, do nothing
+        {
+            do Systems.fault(13); // illegal pixel coordinates
+        }
+        let d_y = 1 - r; // the difference between y1 and y2 is the slope of the line
+        while (~( d_y = r)) // while the slope is less than 0
+        {
+            let square_root = math.square_root((r * r) - (d_y * d_y)); // the square root of the sum of the squares of the radius and the difference between y1 and y2 is the intercept of the line
+            let x1 = x - square_root; // the x-coordinate of the top right corner of the circle is the x-coordinate of the center plus the square root of the sum of the squares of the radius and the difference between y1 and y2
+            let x2 = x + square_root; // the x-coordinate of the top left corner of the circle is the x-coordinate of the center minus the square root of the sum of the squares of the radius and the difference between y1 and y2
+            let y = y + d_y; // the y-coordinate of the top right corner of the circle is the y-coordinate of the center plus the difference between y1 and y2
+            do scr.drawLine(x1, y, x2, y); // draw the line from (x1,y) to (x2,y)
+            let d_y = d_y + 1; // decrement the difference between y1 and y2
+        }
+        return; // return to the caller
+    }
+}

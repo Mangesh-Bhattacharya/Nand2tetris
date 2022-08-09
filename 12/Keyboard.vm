@@ -1,0 +1,91 @@
+function Keyboard.init 0
+push constant 0
+return
+function Keyboard.KP 0
+push constant 24575
+call mem.Peek 1
+return
+function Keyboard.readChar 1
+push constant 0
+call out.print_character 1
+pop temp 0
+label WHILE_EXP0
+call kb.KP 0
+not
+not
+if-goto WHILE_END0
+goto WHILE_EXP0
+label WHILE_END0
+call kb.KP 0
+pop local 0
+label WHILE_EXP1
+call kb.KP 0
+push local 0
+eq
+not
+if-goto WHILE_END1
+goto WHILE_EXP1
+label WHILE_END1
+call out.delete 0
+pop temp 0
+push local 0
+call out.print_character 1
+pop temp 0
+push local 0
+return
+function Keyboard.readLine 2
+push argument 0
+call out.print_str 1
+pop temp 0
+push constant 30
+call str.new 1
+pop local 0
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+call kb.readChar 0
+pop local 1
+push local 1
+call Str.newline 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+call out.print_line 0
+pop temp 0
+call kb.break 0
+pop temp 0
+push local 0
+return
+goto IF_END0
+label IF_FALSE0
+push local 1
+call Str.delete 0
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 1
+call character.strike_final_char 1
+pop temp 0
+goto IF_END1
+label IF_FALSE1
+push local 0
+push local 1
+call str.append_char 2
+pop local 0
+label IF_END1
+label IF_END0
+goto WHILE_EXP0
+label WHILE_END0
+push local 0
+return
+function Keyboard.readInt 1
+push argument 0
+call kb.readLine 1
+pop local 0
+push local 0
+call str.int_val 1
+return

@@ -1,0 +1,117 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Keyboard.jack
+
+/**
+ * A library for handling user input from the keyboard.
+ */
+class Keyboard 
+{
+
+    /** Initializes the keyboard. */
+    function void init() 
+    {
+        // Initialize the keyboard.
+        // ...
+        return;
+    
+    } 
+
+    /**
+     * Returns the character of the currently pressed key on the keyboard;
+     * if no key is currently pressed, returns 0.
+     *
+     * Recognizes all ASCII characters, as well as the following keys:
+     * new line = 128 = String.newline()
+     * backspace = 129 = String.backspace()
+     * left arrow = 130
+     * up arrow = 131
+     * right arrow = 132
+     * down arrow = 133
+     * home = 134
+     * End = 135
+     * page up = 136
+     * page down = 137
+     * insert = 138
+     * delete = 139
+     * ESC = 140
+     * F1 - F12 = 141 - 152
+     */
+    function char KP() 
+    {
+        // Return the character of the currently pressed key on the keyboard.
+        // ...
+        return mem.Peek(24575); 
+    }
+
+    /**								
+     * Waits until a key is pressed on the keyboard and released,
+     * then echoes the key to the screen, and returns the character 
+     * of the pressed key.
+     */
+    function char readChar() 
+    {
+        var char m;
+        // Wait until a key is pressed on the keyboard.
+        do out.print_character(0); // Print a space to the screen.
+        while (~(kb.KP())) {} 
+        let m = kb.KP(); // Get the character of the pressed key.
+        while (kb.KP() = m) {} // Wait until the key is released.
+        do out.delete(); // Delete the space from the screen.
+        do out.print_character(m); // Print the pressed key to the screen.
+
+        return m; // Return the character of the pressed key.
+    }
+
+    /**								
+     * Displays the message on the screen, reads from the keyboard the entered
+     * text until a newline character is detected, echoes the text to the screen,
+     * and returns its value. Also handles user backspaces.
+     */
+    function Str readLine(String msg) 
+    {
+        var str t; // The text entered by the user.
+        var character m; // The character read from the keyboard.
+
+        do out.print_str(msg); // Print the message to the screen.
+        let t = str.new(30); // Create a new string with 30 characters.
+        while (true) // Read from the keyboard until a newline character is detected.
+        {
+            let m = kb.readChar(); // Read a character from the keyboard.
+            if (m = Str.newline()) // If the character is a newline, break.
+            { 
+                do out.print_line(); // Print a newline to the screen.
+                do kb.break(); // Wait for the user to press a key.
+                return t; // Return the text entered by the user.
+            }    
+                else
+                {
+                    if (m = Str.delete()) // if the character is a backspace, then delete the last character of the text.
+                    {
+                        do m.strike_final_char(); // Delete the last character of the text.
+                    }
+                    else // or add the character to the text.
+                    {
+                        let t = t.append_char(m); // Append the character to the text.
+                    }
+
+                }
+        }
+
+                return t; // Return the text entered by the user.
+    }   
+
+    /**								
+     * Displays the message on the screen, reads from the keyboard the entered
+     * text until a newline character is detected, echoes the text to the screen,
+     * and returns its integer value (until the first non-digit character in the
+     * entered text is detected). Also handles user backspaces. 
+     */
+    function int readInt(String message) 
+    {
+        var str t; // The text entered by the user.
+        let t = kb.readLine(message); // Read the text from the keyboard.
+        return t.int_val(); // Return the integer value of the text.
+    }
+}

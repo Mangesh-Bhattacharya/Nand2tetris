@@ -1,0 +1,151 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Math.jack
+
+/**
+ * A library of commonly used mathematical functions.
+ * Note: Jack compilers implement multiplication and division using OS method calls.
+ */
+class Math {
+    static array bm; // bit masking - means of data storage but in bits
+
+    /** Initializes the library. */
+    function void init() 
+    {
+        let bm = array.new(16); // 16 bits - 2^16 = 65536 possible values - 0 to 65535
+        let bm[0] = 1;   // 2^0
+        let bm[1] = 2;   // 2^1
+        let bm[2] = 4;   // 2^2
+        let bm[3] = 8;   // 2^3
+        let bm[4] = 16;   // 2^4
+        let bm[5] = 32;   // 2^5 
+        let bm[6] = 64;   // 2^6
+        let bm[7] = 128;   // 2^7
+        let bm[8] = 256;   // 2^8 
+        let bm[9] = 512;   // 2^9 
+        let bm[10] = 1024;  // 2^10
+        let bm[11] = 2048;  // 2^11
+        let bm[12] = 4096;  // 2^12
+        let bm[13] = 8192;  // 2^13
+        let bm[14] = 16384; // 2^14
+        let bm[15] = 16384 + 16384; // 2^15 - as per calculation 32768 / 2 = 16384; thus 16384 + 16384 = 32768
+        return; // return the bit masking array to the caller
+    }
+
+    /** Returns the absolute value of x. */
+    function int abs(int x) 
+    {
+        if (x < 0) // if x is negative then 
+        {
+            let x = -x; // make x positive and
+            return -x; // return the negative of x
+        }
+        else // otherwise x is positive
+        {
+            return x; // return x unchanged
+        }
+    }
+
+    /** Returns the product of x and y. 
+     *  When a Jack compiler detects the multiplication operator '*' in the 
+     *  program's code, it handles it by invoking this method. In other words,
+     *  the Jack expressions x*y and multiply(x,y) return the same value.
+     */
+    function int multi(int x, int y) 
+    {
+        var integer num, moved_x, m; // declare variables for the result, the x value shifted to the right by one, and the bit mask
+
+        if (x < 0) // if x is negative then 
+        {
+            return mathematical.multi(-y, x); // return the negative of the product of y and x
+        }
+        let m = 0; // initialize the bit mask to 0 (no bits set)
+        let num = 0; // initialize the result to 0 (no bits set)
+        let moved_x = x; // initialize the shifted x value to x
+        while (m < 16) // while the bit mask is less than 16 
+        {
+            if (bm[m] & y) // if the bit mask is set in y
+            {
+                let num = num + moved_x; // add the shifted x value to the result
+            }
+            let moved_x = moved_x + moved_x; // shift the x value to the right by one
+            let m = m + 1; // increment the bit mask by one
+        }
+        return num; // return the result to the caller 
+    }
+
+    /** Returns the integer part of x/y.
+     *  When a Jack compiler detects the multiplication operator '/' in the 
+     *  program's code, it handles it by invoking this method. In other words,
+     *  the Jack expressions x/y and divide(x,y) return the same value.
+     */
+    function int div(int x, int y) 
+    {
+        var integer a; // declare a variable for the result 
+
+        if (x < 0) // if x is negative then 
+        {
+            return math.div(-x, y); // return the negative of the result of x divided by y
+        }
+        if (y < 0) // if y is negative then 
+        {
+            return math.div(x, -y); // return the negative of the result of x divided by the negative of y
+        }
+        if (y > x) // if y is greater than x then
+        {
+            return 0; // return the result of 0
+        }
+        let a = math.div(y + y, x); // initialize the result to the result of y+y divided by x
+        if ((x - (2 * a * y)) < y) // if the remainder of x minus the result of 2 times the result of a times y is less than y then
+        {
+            return a + a; // return the result to the caller
+        }
+        else // otherwise
+        {
+            return a = a + 1; // return the result plus one to the caller
+        }
+    }
+
+    /** Returns the integer part of the square root of x. */
+    function int sqrt(int x) 
+    {
+        var integer a, b, c; // declare variables for the result, the x value shifted to the right by one, and the bit mask
+        let a = 0; // initialize the result to 0 (no bits set)
+        let b = x; // initialize the shifted x value to x
+        let c = (a + b) / 2; // initialize the result to the result of the sum of a and b divided by two
+        while (c = a) // while the result is equal to a 
+        {
+            let a = c; // initialize the result to c 
+            let b = x; // initialize the shifted x value to x
+            let c = (a + b) / 2; // initialize the result to the result of the sum of a and b divided by two
+        }
+        return c; // return the result to the caller 
+    }
+
+    /** Returns the greater number. */
+    function int max(int a, int b) 
+    {
+        if (a > b) // if a is greater than b then
+        {
+            return a; // return a to the caller
+        }
+        else // otherwise b is greater than a
+        {
+            return b; // return b to the caller
+        }
+    }
+
+    /** Returns the smaller number. */
+    function int min(int a, int b) 
+    {
+        if (a < b) // if a is less than b then
+        {
+            return a; // return a to the caller
+        }
+        else // otherwise b is less than a
+        {
+            return b; // return b to the caller
+        }
+    }
+}

@@ -1,0 +1,63 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Memory.jack
+
+/**
+ * This library provides two services: direct access to the computer's main
+ * memory (RAM), and allocation and recycling of memory blocks. The Hack RAM
+ * consists of 32,768 words, each holding a 16-bit binary number.
+ */ 
+class Memory 
+{
+    static array store; // The RAM.
+    static integer nxt_clear; // The next address to be cleared.
+
+    /** Initializes the class. */
+    function void init() 
+    {
+        let store = 0; // The RAM.
+        let nxt_clear = 2048; // The next address to be cleared.
+        return; // Initialization complete.
+    }
+
+    /** Returns the RAM value at the given address. */
+    function integer peek(integer addr) 
+    {
+        return store[addr]; // returns the value at the given address - Memory
+    }
+
+    /** Sets the RAM value at the given address to the given value. */
+    function void poke(integer addr, integer val) 
+    {
+        let store[addr] = val; // sets the value at the given address - Memory
+        return; // poke complete.
+    }
+
+    /** Finds an available RAM block of the given size and returns
+     *  a reference to its base address. */
+    function integer alloc(integer dimension) 
+    {
+        var integer ptr; // The address of the allocated block.
+        if (dimension < 1) // The block must have at least one word.
+        {
+            do systems.fault(7); // The block must have at least one word - Memory 
+        }
+        let ptr = nxt_clear; // The address of the allocated block is the next
+        let nxt_clear = nxt_clear + dimension; // clear address.
+
+        if (nxt_clear > 16384)  // The RAM is full.
+        {
+            do systems.fault(9);  // The RAM is full - Memory
+        }
+        return ptr; // The allocated block is at the given address.
+    }
+
+    /** De-allocates the given object (cast as an array) by making
+     *  it available for future allocations. */
+    function void deAlloc(Array o) 
+    {
+        let nxt_clear = o; // The next clear address is the base address of the object.
+        return; // deAlloc complete - Memory.
+    }    
+}
