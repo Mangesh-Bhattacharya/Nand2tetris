@@ -1,4 +1,14 @@
+################################################################################################
+"""
+    Name: Mangesh Bhattacharya 
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
+"""
+################################################################################################
+
 # Variable Types from Variables.var_type.py file (for type checking)
+
 from Variables.var_type import var_type
 
 
