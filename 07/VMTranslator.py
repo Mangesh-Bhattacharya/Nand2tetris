@@ -1,5 +1,14 @@
 #!/usr/bin/python
 
+################################################################################################
+"""
+    Name: Mangesh Bhattacharya 
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
+"""
+################################################################################################
+
 import sys  # Import the sys module
 import os  # Import the os module
 from CodeWriter import *  # Import the code writer class
