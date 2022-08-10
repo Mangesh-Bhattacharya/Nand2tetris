@@ -1,5 +1,12 @@
 # Hack VM translator parser class
-# Mangesh Bhattacharya | 039-251-145
+################################################################################################
+"""
+    Name: Mangesh Bhattacharya 
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
+"""
+################################################################################################
 
 from numpy import empty  # Import the empty function
 from VMCommand import *  # Import the VMCommand class
