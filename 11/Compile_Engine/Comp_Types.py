@@ -1,3 +1,12 @@
+################################################################################################
+"""
+    Name: Mangesh Bhattacharya 
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
+"""
+################################################################################################
+
 # for creating namedtuple objects for the tokens and the lexer
 from collections import namedtuple
 
