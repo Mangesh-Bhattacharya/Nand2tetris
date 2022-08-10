@@ -1,3 +1,12 @@
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+//  Name: Mangesh Bhattacharya 
+//  Course: Computer Fundamentals
+//  Code: DCN 250
+//  Inst: Dr. Yousef Ashibani
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
@@ -8,7 +17,6 @@
  * out = in + 1 (arithmetic addition)
  */
 
-// by Mangesh Bhattacharya | 039-251-145
 CHIP Inc16 {
     IN in[16];
     OUT out[16];
