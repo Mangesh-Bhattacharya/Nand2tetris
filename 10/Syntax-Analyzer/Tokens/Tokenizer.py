@@ -1,3 +1,12 @@
+################################################################################################
+"""
+    Name: Mangesh Bhattacharya 
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
+"""
+################################################################################################
+
 # for creating empty arrays for tokenizing strings (used in tokenize())
 import string
 from tokenize import Token
