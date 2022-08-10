@@ -1,3 +1,12 @@
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+//  Name: Mangesh Bhattacharya 
+//  Course: Computer Fundamentals
+//  Code: DCN 250
+//  Inst: Dr. Yousef Ashibani
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
@@ -7,7 +16,6 @@
  * Computes the sum of two bits.
  */
  
-// by Mangesh Bhattacharya | 039-251-145
 CHIP HalfAdder {
     IN a, b;    // 1-bit inputs
     OUT sum,    // Right bit of a + b 
