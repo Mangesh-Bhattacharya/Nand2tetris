@@ -1,6 +1,5 @@
 """
     Name: Mangesh Bhattacharya 
-    Std#: 039-251-145
     Course: Computer Fundamentals
     Code: DCN 250
     Inst: Dr. Yousef Ashibani
