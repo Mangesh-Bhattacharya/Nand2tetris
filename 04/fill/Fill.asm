@@ -1,3 +1,12 @@
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+//  Name: Mangesh Bhattacharya 
+//  Course: Computer Fundamentals
+//  Code: DCN 250
+//  Inst: Dr. Yousef Ashibani
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
@@ -11,7 +20,6 @@
 // "white" in every pixel;
 // the screen should remain fully clear as long as no key is pressed.
 
-// Mangesh Bhattacharya | 039-251-145
 
 @beginning
         M=-1               //Black screen
