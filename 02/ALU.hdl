@@ -1,3 +1,12 @@
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+//  Name: Mangesh Bhattacharya 
+//  Course: Computer Fundamentals
+//  Code: DCN 250
+//  Inst: Dr. Yousef Ashibani
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
@@ -26,7 +35,6 @@
 // if (out == 0) set zr = 1
 // if (out < 0) set ng = 1
 
-// by Mangesh Bhattacharya | 039-251-145
 CHIP ALU {
     IN  
         x[16], y[16],  // 16-bit inputs        
