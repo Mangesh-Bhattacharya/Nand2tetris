@@ -1,6 +1,12 @@
+################################################################################################
 """
-Mangesh Bhattacharya | 039-251-145
+    Name: Mangesh Bhattacharya 
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
 """
+################################################################################################
+
 from tkinter import Variable
 from Variables.var_type import var_type
 
