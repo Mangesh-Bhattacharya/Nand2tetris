@@ -1,5 +1,12 @@
 #!/usr/bin/python
-"""Mangesh Bhattacharya | 039-251-145"""
+################################################################################################
+"""
+    Name: Mangesh Bhattacharya 
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
+"""
+################################################################################################
 
 # Importing the required modules
 from VMCommand import add, constant, argument, eq, gt, Not, Or, sub, negate
