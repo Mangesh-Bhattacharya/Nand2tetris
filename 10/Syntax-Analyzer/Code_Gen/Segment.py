@@ -1,4 +1,13 @@
 # for enum type checking in the code generator (Segment, Command)
+################################################################################################
+"""
+    Name: Mangesh Bhattacharya 
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
+"""
+################################################################################################
+
 from enum import Enum
 
 
