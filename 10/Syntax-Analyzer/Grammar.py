@@ -1,5 +1,13 @@
+################################################################################################
+"""
+    Name: Mangesh Bhattacharya 
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
+"""
+################################################################################################
 #####
-# Grammar Consructor - Mangesh Bhattacharya | 039-251-145
+# Grammar Consructor
 #####
 
 import re  # Regular Expressions
