@@ -1,14 +1,17 @@
+"""
+    Name: Mangesh Bhattacharya 
+    Std#: 039-251-145
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
+"""
+
 import os  # for os.path.basename and os.path.dirname functions
 from re import T  # Import the regular expression module for the 'T' token in the regex
 import debugpy  # Import debugpy module (T = True) for debugging purposes
 from numpy import empty  # for os.path.basename and os.path.dirname functions
 from VM_Command import *  # for VM_Command class and its methods
 from tkinter import FALSE  # Import FALSE from tkinter module for boolean values
-
-
-"""
-    Mangesh Bhattacharya | 039-251-145 |
-"""
 
 
 class code_writer(object):  # Class code_writer inherits from object class
