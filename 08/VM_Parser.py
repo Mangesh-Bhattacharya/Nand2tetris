@@ -1,6 +1,12 @@
+################################################################################################
 """
-Mangesh Bhattacharya | 039-251-145
+    Name: Mangesh Bhattacharya 
+    Std#: 039-251-145
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
 """
+################################################################################################
 
 from numpy import empty  # Import empty function from numpy
 from VM_Command import *  # Importing VM_Command class
