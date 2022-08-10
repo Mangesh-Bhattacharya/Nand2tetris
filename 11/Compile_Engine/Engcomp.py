@@ -1,6 +1,11 @@
+################################################################################################
 """
-Mangesh Bhattacharya | 039-251-145
+    Name: Mangesh Bhattacharya 
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
 """
+################################################################################################
 from tokenize import Token  # Tokenize the input file and return a list of tokens
 
 from numpy import empty  # To create an empty array of size n
