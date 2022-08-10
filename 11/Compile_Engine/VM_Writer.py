@@ -1,3 +1,12 @@
+################################################################################################
+"""
+    Name: Mangesh Bhattacharya 
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
+"""
+################################################################################################
+
 Seg_Kind = {  # Segment to index in memory array
     "Field": "this",  # this, that, pointer, temp or constant
     "Static": "static",  # static or constant
