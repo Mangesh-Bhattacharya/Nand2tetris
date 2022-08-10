@@ -1,6 +1,13 @@
 #!/usr/bin/env/python3
 
-"""Mangesh Bhattacharya | 039-251-145"""
+################################################################################################
+"""
+    Name: Mangesh Bhattacharya 
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
+"""
+################################################################################################
 
 import asm, code, symtable, Parser # import from asm, symbol table, and parser 
 from curses.ascii import isdigit  # Determines if the string is a digit
