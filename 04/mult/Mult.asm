@@ -1,3 +1,12 @@
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+//  Name: Mangesh Bhattacharya 
+//  Course: Computer Fundamentals
+//  Code: DCN 250
+//  Inst: Dr. Yousef Ashibani
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
@@ -12,7 +21,6 @@
 // Put your code here.
 //RAM[2] = RAM[0]+RAM[1]
 
-// Mangesh Bhattacharya | 039-251-145
 
         @R0
         D=M             
