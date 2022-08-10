@@ -1,3 +1,12 @@
+################################################################################################
+"""
+    Name: Mangesh Bhattacharya 
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
+"""
+################################################################################################
+
 # This is a subclass of Exception class and it is used to raise an error when the syntax is wrong.
 class syntax_error_except(Exception):
 
