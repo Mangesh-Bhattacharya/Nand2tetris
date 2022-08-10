@@ -1,6 +1,12 @@
+################################################################################################
 """
-    Mangesh Bhattacharya | 039-251-145
+    Name: Mangesh Bhattacharya 
+    Std#: 039-251-145
+    Course: Computer Fundamentals
+    Code: DCN 250
+    Inst: Dr. Yousef Ashibani
 """
+################################################################################################
 from ast import Delete
 import os
 from smtpd import DebuggingServer  # for os.path.basename and os.path.splitext
